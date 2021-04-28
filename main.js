@@ -470,6 +470,8 @@ const runIteration = () => {
     for (let i = 0; i < population.length; i++) {
         let p1 = getRandomNumber(population.length);
 
+        
+
         while (!extractReproduceData(population[p1])[3]) {
             p1 = getRandomNumber(population.length);
         }
