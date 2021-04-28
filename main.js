@@ -467,19 +467,27 @@ const performMutation = (o, prob) => {
 const runIteration = () => {
     // Randomly select pairs of qualified parents
     const parentPairs = [];
-    for (let i = 0; i < population.length; i++) {
+    for (let i = 0; i < population.length * 1.01; i++) {
         let p1 = getRandomNumber(population.length);
 
-        
+        let prob1 = (climateTypeSelector.selectedIndex === 0 && extractClimateAdaptabilityData(population[p1])[3] === 'Cold' && Math.random() < 0.2) || 
+            (climateTypeSelector.selectedIndex === 2 && extractClimateAdaptabilityData(population[p1])[3] === 'Warm' && Math.random() < 0.2);
 
-        while (!extractReproduceData(population[p1])[3]) {
+        while (!extractReproduceData(population[p1])[3] || prob1) {
             p1 = getRandomNumber(population.length);
+            prob1 = (climateTypeSelector.selectedIndex === 0 && extractClimateAdaptabilityData(population[p1])[3] === 'Cold' && Math.random() < 0.2) || 
+                (climateTypeSelector.selectedIndex === 2 && extractClimateAdaptabilityData(population[p1])[3] === 'Warm' && Math.random() < 0.2);
         }
 
         let p2 = getRandomNumber(population.length);
 
-        while (!extractReproduceData(population[p2])[3] || p1 === p2) {
+        let prob2 = (climateTypeSelector.selectedIndex === 0 && extractClimateAdaptabilityData(population[p2])[3] === 'Cold' && Math.random() < 0.2) || 
+            (climateTypeSelector.selectedIndex === 2 && extractClimateAdaptabilityData(population[p2])[3] === 'Warm' && Math.random() < 0.2);
+
+        while (!extractReproduceData(population[p2])[3] || p1 === p2 || prob2) {
             p2 = getRandomNumber(population.length);
+            prob2 = (climateTypeSelector.selectedIndex === 0 && extractClimateAdaptabilityData(population[p2])[3] === 'Cold' && Math.random() < 0.2) || 
+                (climateTypeSelector.selectedIndex === 2 && extractClimateAdaptabilityData(population[p2])[3] === 'Warm' && Math.random() < 0.2);
         }
 
         // while (p1 === p2) {
