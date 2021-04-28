@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forces of Evolution</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .configuration {
+            width: 50%;
+            float: left;
+        }
+
+        .simulationResults {
+            width: 50%;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Forces of Evolution</h1>
+
+    <div class="configuration">
+        <h2>Configuration</h2>
+
+        <ol>
+            <li>
+                Natural Selection
+                <div>
+                    <label for="climateType">Choose Climate Type:</label>
+
+                    <select name="climateType" id="climateType">
+                      <option value="Warm">Warm Climate</option>
+                      <option value="Normal" selected>Normal Climate</option>
+                      <option value="Cold">Cold Climate</option>
+                    </select> 
+                </div>
+            </li>
+            <li>
+                Mutation
+                <div>
+                    <label for="mutationFrequency">Mutation Frequency: </label>
+                    <input type="text" id="mutationFrequency" value="5" style="width: 50px;">%
+                    <p>Note: Approximately 1% of these mutations are fatal</p>
+                </div>
+            </li>
+            <li>
+                Gene Flow
+                <div>
+                    <label for="geneFlowType">Gene Flow Type:</label>
+
+                    <select name="geneFlowType" id="geneFlowType">
+                      <option value="One-Way">One-Way Gene Flow</option>
+                      <option value="None" selected>None</option>
+                      <option value="Multi-Way">Multi-Way Gene Flow</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                Genetic Drift
+                <div>
+                    <button id="founderBottleneckEffect">Apply Founder's Effect/Population Bottleneck</button>
+                </div>
+            </li>
+        </ol>
+
+        <button id="startButton" class="button">Start</button>
+        <button id="stopButton" class="button disabled" disabled>Pause</button>
+        <button id="restartButton" class="button">Restart</button>
+
+        <h2>Phenotypes in Current Generation</h2>
+
+        <h4>Eye Color</h4>
+        <p id="totalGreen">Green: </p>
+        <p id="totalBlue">Blue: </p>
+        <p id="totalBrown">Brown: </p>
+        <p id="totalGray">Gray: </p>
+
+        <h4>Climate Adaptability</h4>
+        <p id="totalWarm">Warmer Climates: </p>
+        <p id="totalCold">Colder Climates: </p>
+
+        <h4>Able to Reproduce</h4>
+        <p id="totalYes">Yes: </p>
+        <p id="totalNo">No: </p>
+
+        <h4>Deaths from mutations</h4>
+        <p id="totalDeaths">Total: </p>
+    </div>
+
+    <div class="simulationResults">
+        <h2>Current Generation Stats</h2>
+        <p id="generationText">Generation: </p>
+        <p id="populationSizeText">Size: </p>
+    
+        <h4>Eye Color</h4>
+    
+        <p id="eyeColorP">p = </p>
+        <p id="eyeColorQ">q = </p>
+        <p>----------</p>
+        <p id="eyeColorP2">p^2 = </p>
+        <p id="eyeColor2pq">2pq = </p>
+        <p id="eyeColorQ2">q^2 = </p>
+    
+        <h4>Climate Adaptability</h4>
+    
+        <p id="climateP">p = </p>
+        <p id="climateQ">q = </p>
+        <p>----------</p>
+        <p id="climateP2">p^2 = </p>
+        <p id="climate2pq">2pq = </p>
+        <p id="climateQ2">q^2 = </p>
+    
+        <h4>Able to Reproduce:</h4>
+        
+        <p id="reproduceP">p = </p>
+        <p id="reproduceQ">q = </p>
+        <p>----------</p>
+        <p id="reproduceP2">p^2 = </p>
+        <p id="reproduce2pq">2pq = </p>
+        <p id="reproduceQ2">q^2 = </p>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>
