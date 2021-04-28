@@ -68,6 +68,28 @@
             </li>
         </ol>
 
+        <p>Advanced Configuration</p>
+        <div>
+            <label for="generationsPerSecond">Generations per second: </label>
+            <input type="text" id="generationsPerSecond" value="2" style="width: 50px">
+        </div>
+
+        <div>
+            <label for="initialPopulationSize">Initial Population Size: </label>
+            <input type="text" id="initialPopulationSize" value="1000" style="width: 50px">
+        </div>
+
+        <div>
+            <label for="offspringMultiple">Offspring multiple: </label>
+            <input type="text" id="offspringMultiple" value="1.01" style="width: 50px;">
+            <p>
+                Note: Offspring multiple is the number of offspring to have relative to current population. For example, 1.01 means have 1% more
+                offspring than the number of individuals the current generation has. This is designed to help stabilize population size when configuring
+                the forces of evolution. 1.01 was selected as the default because it helps stabilize the population size with the default settings.
+            </p>
+        </div>
+        
+
         <button id="startButton" class="button">Start</button>
         <button id="stopButton" class="button disabled" disabled>Pause</button>
         <button id="restartButton" class="button">Restart</button>

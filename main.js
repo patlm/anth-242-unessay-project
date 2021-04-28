@@ -14,9 +14,8 @@
 
 
 // ---------- Constants
-// POPULATION_SIZE and GENERATIONS_PER_SECOND can be changed without consequences
-const POPULATION_SIZE = 1000;
-const GENERATIONS_PER_SECOND = 2;
+// GENERATIONS_PER_SECOND_DEFAULT can be changed without consequences
+const GENERATIONS_PER_SECOND_DEFAULT = 2;
 
 // Indices into chromosome arrays are hard-coded so this can not be changed without consequences
 const CHROMOSOME_LENGTH = 6;
@@ -92,10 +91,9 @@ const climateTypeSelector = document.getElementById('climateType');
 const mutationFrequencyTextBox = document.getElementById('mutationFrequency');
 const geneFlowSelector = document.getElementById('geneFlowType');
 const geneticDriftButton = document.getElementById('founderBottleneckEffect');
-
-console.log('Climate type: ' + climateTypeSelector.selectedIndex);
-console.log('Mutation frequency: ' + mutationFrequencyTextBox.value);
-console.log('Gene Flow Type: ' + geneFlowSelector.selectedIndex);
+const generationsPerSecondTextBox = document.getElementById('generationsPerSecond');
+const initialPopulationSizeTextBox = document.getElementById('initialPopulationSize');
+const offspringMultipleTextBox = document.getElementById('offspringMultiple');
 
 // Start/stop/restart buttons
 const startButton = document.getElementById('startButton');
@@ -120,7 +118,7 @@ const generateRandomIndividual = () => {
 const generateRandomPopulation = () => {
     population = [];
 
-    for (let i = 0; i < POPULATION_SIZE; i++) {
+    for (let i = 0; i < Math.round(initialPopulationSizeTextBox.value); i++) {
         population.push(generateRandomIndividual());
     }
 }
@@ -465,9 +463,30 @@ const performMutation = (o, prob) => {
 }
 
 const runIteration = () => {
+    // Bring in gene flow if neccessary
+    if (geneFlowSelector.selectedIndex === 0) {
+        // Push an additional 10% population into region
+        for (let i = 0; i < Math.floor(population.length * 0.1); i++) {
+            population.push(generateRandomIndividual());
+        }
+    } else if (geneFlowSelector.selectedIndex === 2) {
+        // Get 10% from current population
+        const removedIndividuals = [];
+        for (let i = 0; i < Math.floor(population.length * 0.1); i++) {
+            const r = Math.random(population.length);
+            removedIndividuals.push(population[r]);
+            population.splice(r, 1);
+        }
+
+        // Crossover with random individuals and push to population
+        for (let i = 0; i < removedIndividuals.length; i++) {
+            population.push(performCrossover(removedIndividuals, generateRandomIndividual()));
+        }
+    }
+
     // Randomly select pairs of qualified parents
     const parentPairs = [];
-    for (let i = 0; i < population.length * 1.01; i++) {
+    for (let i = 0; i < Math.ceil(population.length * offspringMultipleTextBox.value); i++) {
         let p1 = getRandomNumber(population.length);
 
         let prob1 = (climateTypeSelector.selectedIndex === 0 && extractClimateAdaptabilityData(population[p1])[3] === 'Cold' && Math.random() < 0.2) || 
@@ -489,10 +508,6 @@ const runIteration = () => {
             prob2 = (climateTypeSelector.selectedIndex === 0 && extractClimateAdaptabilityData(population[p2])[3] === 'Cold' && Math.random() < 0.2) || 
                 (climateTypeSelector.selectedIndex === 2 && extractClimateAdaptabilityData(population[p2])[3] === 'Warm' && Math.random() < 0.2);
         }
-
-        // while (p1 === p2) {
-        //     p2 = getRandomNumber(population.length);
-        // }
 
         parentPairs.push([population[p1], population[p2]]);
     }
@@ -540,11 +555,10 @@ const applyFounderBottleneckEffect = () => {
 
 // ---------- Create listeners for buttons
 startButton.addEventListener("click", () => {
-    let num = GENERATIONS_PER_SECOND;
-    // if (roomVisitedPerSecondTextInput !== "") {
-    //   num = Math.round(roomVisitedPerSecondTextInput.value);
-    //   roomVisitedPerSecondTextInput.value = num;
-    // }
+    let num = GENERATIONS_PER_SECOND_DEFAULT;
+    if (generationsPerSecondTextBox.value !== "") {
+        num = Math.round(generationsPerSecondTextBox.value);
+    }
   
     let timeValue = 1000 / num;
     start(timeValue);
@@ -557,6 +571,9 @@ startButton.addEventListener("click", () => {
     mutationFrequencyTextBox.disabled = true;
     geneFlowSelector.disabled = true;
     geneticDriftButton.disabled = true;
+    generationsPerSecondTextBox.disabled = true;
+    initialPopulationSizeTextBox.disabled = true;
+    offspringMultipleTextBox.disabled = true;
 });
 
 stopButton.addEventListener("click", () => {
@@ -570,6 +587,9 @@ stopButton.addEventListener("click", () => {
     mutationFrequencyTextBox.disabled = false;
     geneFlowSelector.disabled = false;
     geneticDriftButton.disabled = false;
+    generationsPerSecondTextBox.disabled = false;
+    initialPopulationSizeTextBox.disabled = false;
+    offspringMultipleTextBox.disabled = false;
 });
 
 restartButton.addEventListener("click", () => {
@@ -587,8 +607,15 @@ restartButton.addEventListener("click", () => {
     mutationFrequencyTextBox.disabled = false;
     geneFlowSelector.disabled = false;
     geneticDriftButton.disabled = false;
+    generationsPerSecondTextBox.disabled = false;
+    initialPopulationSizeTextBox.disabled = false;
+    offspringMultipleTextBox.disabled = false;
 });
 
 geneticDriftButton.addEventListener('click', () => {
     applyFounderBottleneckEffect();
 });
+
+// ---------- Show initial stats (just so it is clear they are all 0s for consistency)
+updateMetrics();
+updateText();
