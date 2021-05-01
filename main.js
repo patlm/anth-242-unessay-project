@@ -268,11 +268,11 @@ const updateText = () => {
         ep = 0;
         eq = 0;
     }
-    eyeColorPTextLabel.innerText = `p = ${ep}`;
-    eyeColorQTextLabel.innerText = `q = ${eq}`;
-    eyeColorP2TextLabel.innerText = `p^2 = ${ep * ep}`;
-    eyeColor2pqTextLabel.innerText = `2pq = ${2 * ep * eq}`;
-    eyeColorQ2TextLabel.innerText = `q^2 = ${eq * eq}`;
+    eyeColorPTextLabel.innerText = `p = ${ep.toFixed(4)}`;
+    eyeColorQTextLabel.innerText = `q = ${eq.toFixed(4)}`;
+    eyeColorP2TextLabel.innerText = `p^2 = ${(ep * ep).toFixed(4)}`;
+    eyeColor2pqTextLabel.innerText = `2pq = ${(2 * ep * eq).toFixed(4)}`;
+    eyeColorQ2TextLabel.innerText = `q^2 = ${(eq * eq).toFixed(4)}`;
 
     totalGreenTextLabel.innerText = `Green: ${totalGreen}`;
     totalBlueTextLabel.innerText = `Blue: ${totalBlue}`;
@@ -286,11 +286,11 @@ const updateText = () => {
         cp = 0;
         cq = 0;
     }
-    climatePTextLabel.innerText = `p = ${cp}`;
-    climateQTextLabel.innerText = `q = ${cq}`;
-    climateP2TextLabel.innerText = `p^2 = ${cp * cp}`;
-    climate2pqTextLabel.innerText = `2pq = ${2 * cp * cq}`;
-    climateQ2TextLabel.innerText = `q^2 = ${cq * cq}`;
+    climatePTextLabel.innerText = `p = ${cp.toFixed(4)}`;
+    climateQTextLabel.innerText = `q = ${cq.toFixed(4)}`;
+    climateP2TextLabel.innerText = `p^2 = ${(cp * cp).toFixed(4)}`;
+    climate2pqTextLabel.innerText = `2pq = ${(2 * cp * cq).toFixed(4)}`;
+    climateQ2TextLabel.innerText = `q^2 = ${(cq * cq).toFixed(4)}`;
 
     totalWarmTextLabel.innerText = `Warmer Climates: ${totalWarm}`;
     totalColdTextLabel.innerText = `Colder Climates: ${totalCold}`;
@@ -302,11 +302,11 @@ const updateText = () => {
         rp = 0;
         rq = 0;
     }
-    reproducePTextLabel.innerText = `p = ${rp}`;
-    reproduceQTextLabel.innerText = `q = ${rq}`;
-    reproduceP2TextLabel.innerText = `p^2 = ${rp * rp}`;
-    reproduce2pqTextLabel.innerText = `2pq = ${2 * rp * rq}`;
-    reproduceQ2TextLabel.innerText = `q^2 = ${rq * rq}`;
+    reproducePTextLabel.innerText = `p = ${rp.toFixed(4)}`;
+    reproduceQTextLabel.innerText = `q = ${rq.toFixed(4)}`;
+    reproduceP2TextLabel.innerText = `p^2 = ${(rp * rp).toFixed(4)}`;
+    reproduce2pqTextLabel.innerText = `2pq = ${(2 * rp * rq).toFixed(4)}`;
+    reproduceQ2TextLabel.innerText = `q^2 = ${(rq * rq).toFixed(4)}`;
 
     totalYesTextLabel.innerText = `Yes: ${totalYes}`;
     totalNoTextLabel.innerText = `No: ${totalNo}`;
